@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+</head>
+
+<body>
+
+    <h1>Library Books</h1>
+
+    {% if books %}
+        {% for book in books %}
+
+            <div>
+                <h2>{{ book.title }}</h2>
+
+                <p>Author: {{ book.author }}</p>
+                <p>ISBN: {{ book.isbn }}</p>
+                <p>Category: {{ book.category }}</p>
+
+                <p>
+                    Available:
+                    {{ book.available_copies }}
+                    /
+                    {{ book.total_copies }}
+                </p>
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+        <p>No books available.</p>
+    {% endif %}
+
+</body>
+</html>
