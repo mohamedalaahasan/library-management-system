@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Loans</title>
+</head>
+
+<body>
+
+    <h1>My Loans</h1>
+
+    {% if loans %}
+
+        {% for loan in loans %}
+
+            <div>
+                <h2>{{ loan.book.title }}</h2>
+
+                <p>
+                    Author: {{ loan.book.author }}
+                </p>
+
+                <p>
+                    Borrow Date: {{ loan.borrow_date }}
+                </p>
+
+                <p>
+                    Status: {{ loan.status }}
+                </p>
+
+                {% if loan.status == 'borrowed' %}
+                    <a href="{% url 'return_book' loan.id %}">
+                        Return Book
+                    </a>
+                {% else %}
+                    <p>
+                        Returned on: {{ loan.return_date }}
+                    </p>
+                {% endif %}
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>You have no loans.</p>
+
+    {% endif %}
+
+</body>
+</html>

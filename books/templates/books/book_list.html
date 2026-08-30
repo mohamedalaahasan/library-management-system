@@ -1,40 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books</title>
-</head>
+{% for book in books %}
 
-<body>
+    <div>
+        <h2>{{ book.title }}</h2>
 
-    <h1>Library Books</h1>
+        <p>Author: {{ book.author }}</p>
+        <p>ISBN: {{ book.isbn }}</p>
+        <p>Category: {{ book.category }}</p>
 
-    {% if books %}
-        {% for book in books %}
+        <p>
+            Available:
+            {{ book.available_copies }}
+            /
+            {{ book.total_copies }}
+        </p>
 
-            <div>
-                <h2>{{ book.title }}</h2>
+        {% if user.is_authenticated %}
+            {% if book.available_copies > 0 %}
+                <a href="{% url 'borrow_book' book.id %}">
+                    Borrow
+                </a>
+            {% else %}
+                <p>No copies available.</p>
+            {% endif %}
+        {% else %}
+            <p>Please login to borrow this book.</p>
+        {% endif %}
+    </div>
 
-                <p>Author: {{ book.author }}</p>
-                <p>ISBN: {{ book.isbn }}</p>
-                <p>Category: {{ book.category }}</p>
+    <hr>
 
-                <p>
-                    Available:
-                    {{ book.available_copies }}
-                    /
-                    {{ book.total_copies }}
-                </p>
-            </div>
-
-            <hr>
-
-        {% endfor %}
-
-    {% else %}
-        <p>No books available.</p>
-    {% endif %}
-
-</body>
-</html>
+{% endfor %}
