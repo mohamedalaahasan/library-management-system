@@ -1,3 +1,9 @@
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
 {% for book in books %}
 
     <div>
